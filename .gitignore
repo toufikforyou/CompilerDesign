@@ -1,0 +1,10 @@
+*.txt
+*.exe
+
+*.log
+*.tmp
+*.bak
+*.swp
+*.obj
+*.o
+*.class
