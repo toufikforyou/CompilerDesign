@@ -1,7 +1,7 @@
 # 🖥️ Compiler Design Lab
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](CONTRIBUTING.md)
+[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](./docs/CONTRIBUTING.md)
 [![Languages](https://img.shields.io/badge/languages-C%2B%2B%7CJava%7CKotlin%7CPython%7CJavaScript-blue)](README.md)
 
 A comprehensive collection of compiler design implementations, assignments, and projects covering lexical analysis, syntax analysis, semantic analysis, code generation, and optimization techniques across multiple programming languages.
@@ -61,13 +61,10 @@ CompilerDesign/
 ├── javascript/
 │   └── assignments/
 ├── docs/
-│   ├── algorithms/
-│   ├── examples/
-│   └── references/
+│   └── CONTRIBUTING.md
 ├── tests/
 ├── .gitignore
 ├── README.md
-├── CONTRIBUTING.md
 └── LICENSE
 ```
 
@@ -240,7 +237,7 @@ int x = 42;
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
+We welcome contributions! Please see our [Contributing Guidelines](./docs/CONTRIBUTING.md) for details.
 
 ### Quick Contribution Guide
 
