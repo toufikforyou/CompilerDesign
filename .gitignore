@@ -8,3 +8,10 @@
 *.obj
 *.o
 *.class
+
+/.vscode
+/.idea
+*.iml
+*.out
+*.dSYM
+.DS_Store
