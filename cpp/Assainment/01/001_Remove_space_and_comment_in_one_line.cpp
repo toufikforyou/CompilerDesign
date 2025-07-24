@@ -1,105 +1,50 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-
+#include<bits/stdc++.h>
 using namespace std;
-
-string removeComments(const string &code)
-{
-    string result;
-    bool singleLine = false;
-    bool multuLine = false;
-
-    for (size_t i = 0; i < code.length(); i++)
-    {
-        if (singleLine)
-        {
-            if (code[i] == '\n')
-            {
-                singleLine = false;
-                result += ' ';
-            }
-        }
-        else if (multuLine)
-        {
-            if (code[i] == '*' && code[i + 1] == '/')
-            {
-                multuLine = false;
-                i++;
-            }
-        }
-        else
-        {
-            if (code[i] == '/' && code[i + 1] == '/')
-            {
-                singleLine = true;
-                i++;
-            }
-            else if (code[i] == '/' && code[i + 1] == '*')
-            {
-                multuLine = true;
-                i++;
-            }
-            else
-            {
-                result += code[i];
-            }
-        }
-    }
-
-    return result;
-}
-
-string removeExtraWhitespace(const string &code)
-{
-    string result;
-    bool in_space = false;
-
-    for (char ch : code)
-    {
-        if (ch == ' ' || ch == '\t' || ch == '\n')
-        {
-            if (!in_space)
-            {
-                result += ' ';
-                in_space = true;
-            }
-        }
-        else
-        {
-            result += ch;
-            in_space = false;
-        }
-    }
-
-    return result;
-}
 
 int main()
 {
-    fstream input("input.c");
-    ofstream output("output.txt");
+    ifstream file1("input.c");
+    ofstream file2("output.txt");
 
-    if (!input)
-    {
-        cout << "Error opening files!" << endl;
+    if(!file1.is_open()){
+        cout << "File can not be opened";
         return 0;
     }
 
-    string code, line;
-    while (getline(input, line))
+    string line;
+    int ok = 0;
+    while(getline(file1,line))
     {
-        code += line + '\n';
+        size_t flag1 = line.find("/*");
+        size_t flag2 = line.find("*/");
+        if(flag1 != -1) ok = 1;
+        if(flag2 != -1) {
+            ok = 0;
+            continue;
+        }
+        if(ok) continue;
+        
+        size_t start = line.find("//");
+        if(start != -1)
+        {
+            string line2 = line.substr(0, start);
+            file2 << line2;
+        }
+        else{
+            int flag = 0;
+            for(char c : line)
+            {
+                if(c != ' ' && flag == 0)
+                {
+                    flag = 1;
+                }
+                if(flag) file2 << c;
+            }
+        }
     }
-
-    string noComments = removeComments(code);
-    string cleaned = removeExtraWhitespace(noComments);
-
-    output << cleaned;
-
-    cout << "\nOutput: " << cleaned << "\n\n";
-
-    input.close();
-
+    file1.close();
+    file2.close();
     return 0;
 }
+
+// to get this version siam024
