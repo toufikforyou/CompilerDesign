@@ -20,70 +20,39 @@ int main()
         text += c;
     }
 
-    regex kw_patterns(R"(\b(?:char|int|float|if|else)\b)");
-    regex variable_patterns(R"([a-zA-Z_]\w*)");
-    regex number_patterns(R"(\d+(\.\d+)?)");
-    regex oparator_patterns(R"(<=|>=|==|!=|[+\-*/=<>])");
-    regex perenthisis_patterns(R"([{()}])");
-    regex separator_patterns(R"([,;'])");
-    regex ws_patterns(R"(\s+)");
+    const vector<pair<string, regex>> patterns = {
+        {"kw", regex(R"(\b(?:char|int|float|if|else)\b)")},
+        {"id", regex(R"([a-zA-Z_]\w*)")},
+        {"num", regex(R"(\d+(\.\d+)?)")},
+        {"unkn", regex(R"(\d+\.[a-zA-Z0-9]+)")},
+        {"op", regex(R"(<=|>=|==|!=|[+\-*/=<>])")},
+        {"par", regex(R"([{()}])")},
+        {"sep", regex(R"([,;'])")},
+        {"ws", regex(R"(\s+)")}};
 
-    size_t position(0);
-
-    while (position < text.length())
+    size_t pos = 0;
+    while (pos < text.length())
     {
-        bool matche = false;
-        for (int i = 0; i < 1; i++)
+        bool matched = false;
+        for (const auto &[type, pattern] : patterns)
         {
-            smatch m;
-            string sub = text.substr(position);
-
-            if (regex_search(sub, m, kw_patterns))
+            smatch match;
+            string sub = text.substr(pos);
+            if (regex_search(sub, match, pattern))
             {
-                cout << "[" << "kw" << " " << m.str() << "] ";
-                matche = true;
-                position += m.length();
-                break;
-            }
-            if (regex_search(sub, m, variable_patterns))
-            {
-                cout << "[" << "id" << " " << m.str() << "] ";
-                matche = true;
-                position += m.length();
-                break;
-            }
-            if (regex_search(sub, m, number_patterns))
-            {
-                cout << "[" << "num" << " " << m.str() << "] ";
-                matche = true;
-                position += m.length();
-                break;
-            }
-            if (regex_search(sub, m, oparator_patterns))
-            {
-                cout << "[" << "op" << " " << m.str() << "] ";
-                matche = true;
-                position += m.length();
-                break;
-            }
-            if (regex_search(sub, m, perenthisis_patterns))
-            {
-                cout << "[" << "par" << " " << m.str() << "] ";
-                matche = true;
-                position += m.length();
-                break;
-            }
-            if (regex_search(sub, m, separator_patterns))
-            {
-                cout << "[" << "sep" << " " << m.str() << "] ";
-                matche = true;
-                position += m.length();
+                if (type != "ws")
+                {
+                    cout << "[" << type << " " << match.str() << "] ";
+                }
+                pos += match.length();
+                matched = true;
                 break;
             }
         }
-        if (!matche)
+        if (!matched)
         {
-            position++;
+            cout << "[unkn " << text[pos] << "] ";
+            pos++;
         }
     }
 
