@@ -21,7 +21,7 @@ int main()
     }
 
     const vector<pair<string, regex>> patterns = {
-        {"kw", regex(R"(\b(?:char|int|float|if|else)\b)")},
+        {"kw", regex(R"(char|int|float|if|else)")},
         {"id", regex(R"([a-zA-Z_]\w*)")},
         {"num", regex(R"(\d+(\.\d+)?)")},
         {"unkn", regex(R"(\d+\.[a-zA-Z0-9]+)")},
@@ -38,7 +38,7 @@ int main()
         {
             smatch match;
             string sub = text.substr(pos);
-            if (regex_search(sub, match, pattern))
+            if (regex_search(sub, match, pattern, regex_constants::match_continuous))
             {
                 if (type != "ws")
                 {
