@@ -37,10 +37,6 @@ int main()
             if (regex_search(sub, m, kw_patterns, regex_constants::match_continuous))
             {
                 cout << "[kw " << m.str() << "]";
-                finalOutput += "[kw ";
-                finalOutput += m.str();
-                finalOutput += "]";
-
                 match = true;
                 pos += m.length();
                 break;
@@ -48,10 +44,6 @@ int main()
             if (regex_search(sub, m, variable_patterns, regex_constants::match_continuous))
             {
                 cout << "[id " << m.str() << "]";
-                finalOutput += "[kw ";
-                finalOutput += m.str();
-                finalOutput += "]";
-
                 match = true;
                 pos += m.length();
                 break;
@@ -59,10 +51,6 @@ int main()
             if (regex_search(sub, m, number_patterns, regex_constants::match_continuous))
             {
                 cout << "[num " << m.str() << "]";
-                finalOutput += "[kw ";
-                finalOutput += m.str();
-                finalOutput += "]";
-
                 match = true;
                 pos += m.length();
                 break;
@@ -70,10 +58,6 @@ int main()
             if (regex_search(sub, m, oparator_patterns, regex_constants::match_continuous))
             {
                 cout << "[op " << m.str() << "]";
-                finalOutput += "[kw ";
-                finalOutput += m.str();
-                finalOutput += "]";
-
                 match = true;
                 pos += m.length();
                 break;
@@ -81,10 +65,6 @@ int main()
             if (regex_search(sub, m, perenthisis_patterns, regex_constants::match_continuous))
             {
                 cout << "[per " << m.str() << "]";
-                finalOutput += "[kw ";
-                finalOutput += m.str();
-                finalOutput += "]";
-
                 match = true;
                 pos += m.length();
                 break;
@@ -92,10 +72,6 @@ int main()
             if (regex_search(sub, m, separator_patterns, regex_constants::match_continuous))
             {
                 cout << "[sep " << m.str() << "]";
-                finalOutput += "[kw ";
-                finalOutput += m.str();
-                finalOutput += "]";
-
                 match = true;
                 pos += m.length();
                 break;
