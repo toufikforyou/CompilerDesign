@@ -21,10 +21,6 @@ int main()
         text += c;
     }
 
-    ofstream output("output.txt");
-
-    string finalOutput;
-
     size_t pos(0);
     while (pos < text.length())
     {
@@ -82,8 +78,6 @@ int main()
             pos++;
         }
     }
-
-    output << finalOutput;
 
     cout << endl;
 
