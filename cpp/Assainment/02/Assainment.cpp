@@ -20,7 +20,7 @@ int main()
         text += c;
     }
 
-     regex kw_patterns(R"(\b(?:char|int|float|if|else)\b)");
+    regex kw_patterns(R"(\b(?:char|int|float|if|else)\b)");
     regex variable_patterns(R"([a-zA-Z_]\w*)");
     regex number_patterns(R"(\d+(\.\d+)?)");
     regex oparator_patterns(R"(<=|>=|==|!=|[+\-*/=<>])");
@@ -28,7 +28,7 @@ int main()
     regex separator_patterns(R"([,;'])");
     regex ws_patterns(R"(\s+)");
 
-    size_t position = 0;
+    size_t position(0);
 
     while (position < text.length())
     {
@@ -38,42 +38,42 @@ int main()
             smatch m;
             string sub = text.substr(position);
 
-            if (regex_search(sub, m, kw_patterns, regex_constants::match_continuous))
+            if (regex_search(sub, m, kw_patterns))
             {
                 cout << "[" << "kw" << " " << m.str() << "] ";
                 matche = true;
                 position += m.length();
                 break;
             }
-            if (regex_search(sub, m, variable_patterns, regex_constants::match_continuous))
+            if (regex_search(sub, m, variable_patterns))
             {
                 cout << "[" << "id" << " " << m.str() << "] ";
                 matche = true;
                 position += m.length();
                 break;
             }
-            if (regex_search(sub, m, number_patterns, regex_constants::match_continuous))
+            if (regex_search(sub, m, number_patterns))
             {
                 cout << "[" << "num" << " " << m.str() << "] ";
                 matche = true;
                 position += m.length();
                 break;
             }
-            if (regex_search(sub, m, oparator_patterns, regex_constants::match_continuous))
+            if (regex_search(sub, m, oparator_patterns))
             {
                 cout << "[" << "op" << " " << m.str() << "] ";
                 matche = true;
                 position += m.length();
                 break;
             }
-            if (regex_search(sub, m, perenthisis_patterns, regex_constants::match_continuous))
+            if (regex_search(sub, m, perenthisis_patterns))
             {
                 cout << "[" << "par" << " " << m.str() << "] ";
                 matche = true;
                 position += m.length();
                 break;
             }
-            if (regex_search(sub, m, separator_patterns, regex_constants::match_continuous))
+            if (regex_search(sub, m, separator_patterns))
             {
                 cout << "[" << "sep" << " " << m.str() << "] ";
                 matche = true;
