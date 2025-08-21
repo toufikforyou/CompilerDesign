@@ -4,76 +4,76 @@ using namespace std;
 
 int main()
 {
-    ifstream inputFile("input.txt");
+    ifstream input_file("input.txt");
 
-    regex kw_patterns(R"(\b(?:char|int|float|if|else)\b)");
-    regex variable_patterns(R"([a-zA-Z_]\w*)");
-    regex number_patterns(R"(\d+(\.\d+)?)");
-    regex oparator_patterns(R"(<=|>=|==|!=|[+\-*/=<>])");
-    regex perenthisis_patterns(R"([{()}])");
-    regex separator_patterns(R"([,;'])");
+    regex kw_patterns = regex(R"(\b(?:char|int|float|if|else)\b)");
+    regex variable_patterns = regex(R"([a-zA-Z_]\w*)");
+    regex number_patterns = regex(R"(\d+(\.\d+)?)");
+    regex oparator_patterns = regex(R"(<=|>=|==|!=|[+\-*/=<>])");
+    regex perenthisis_patterns = regex(R"([{()}])");
+    regex separator_patterns = regex(R"([,;'])");
 
     string text;
-    char c;
+    char ch;
 
-    while (inputFile.get(c))
+    while (input_file.get(ch))
     {
-        text += c;
+        text += ch;
     }
 
     size_t pos(0);
     while (pos < text.length())
     {
-        bool match = false;
+        bool matches = false;
 
         for (int i = 0; i < 1; i++)
         {
-            smatch m;
+            smatch match;
             string sub = text.substr(pos);
-            if (regex_search(sub, m, kw_patterns, regex_constants::match_continuous))
+            if (regex_search(sub, match, kw_patterns, regex_constants::match_continuous))
             {
-                cout << "[kw " << m.str() << "]";
-                match = true;
-                pos += m.length();
+                cout << "[kw " << match.str() << "]";
+                matches = true;
+                pos += match.length();
                 break;
             }
-            if (regex_search(sub, m, variable_patterns, regex_constants::match_continuous))
+            if (regex_search(sub, match, variable_patterns, regex_constants::match_continuous))
             {
-                cout << "[id " << m.str() << "]";
-                match = true;
-                pos += m.length();
+                cout << "[id " << match.str() << "]";
+                matches = true;
+                pos += match.length();
                 break;
             }
-            if (regex_search(sub, m, number_patterns, regex_constants::match_continuous))
+            if (regex_search(sub, match, number_patterns, regex_constants::match_continuous))
             {
-                cout << "[num " << m.str() << "]";
-                match = true;
-                pos += m.length();
+                cout << "[num " << match.str() << "]";
+                matches = true;
+                pos += match.length();
                 break;
             }
-            if (regex_search(sub, m, oparator_patterns, regex_constants::match_continuous))
+            if (regex_search(sub, match, oparator_patterns, regex_constants::match_continuous))
             {
-                cout << "[op " << m.str() << "]";
-                match = true;
-                pos += m.length();
+                cout << "[op " << match.str() << "]";
+                matches = true;
+                pos += match.length();
                 break;
             }
-            if (regex_search(sub, m, perenthisis_patterns, regex_constants::match_continuous))
+            if (regex_search(sub, match, perenthisis_patterns, regex_constants::match_continuous))
             {
-                cout << "[per " << m.str() << "]";
-                match = true;
-                pos += m.length();
+                cout << "[per " << match.str() << "]";
+                matches = true;
+                pos += match.length();
                 break;
             }
-            if (regex_search(sub, m, separator_patterns, regex_constants::match_continuous))
+            if (regex_search(sub, match, separator_patterns, regex_constants::match_continuous))
             {
-                cout << "[sep " << m.str() << "]";
-                match = true;
-                pos += m.length();
+                cout << "[sep " << match.str() << "]";
+                matches = true;
+                pos += match.length();
                 break;
             }
         }
-        if (!match)
+        if (!matches)
         {
             pos++;
         }
