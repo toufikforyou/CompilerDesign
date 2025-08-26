@@ -1,0 +1,64 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main()
+{
+    ifstream myInput("input.c");
+    ofstream stepOneOutput("step-one-output.txt");
+
+    if (!myInput)
+    {
+        cout << "Error: Cannot open input file.\n";
+        return 0;
+    }
+
+    string text;
+    char c;
+
+    while (myInput.get(c))
+    {
+        text += c;
+    }
+
+    const vector<pair<string, regex>> patterns = {
+        {"kw", regex(R"(char|int|float|if|else)")},
+        {"id", regex(R"([a-zA-Z_]\w*)")},
+        {"num", regex(R"(\d+(\.\d+)?)")},
+        {"unkn", regex(R"(\d+\.[a-zA-Z0-9]+)")},
+        {"op", regex(R"(<=|>=|==|!=|[+\-*/=<>])")},
+        {"par", regex(R"([{()}])")},
+        {"sep", regex(R"([,;'])")},
+        {"ws", regex(R"(\s+)")}};
+
+    size_t pos = 0;
+    while (pos < text.length())
+    {
+        bool matched = false;
+        for (const auto &[type, pattern] : patterns)
+        {
+            smatch match;
+            string sub = text.substr(pos);
+            if (regex_search(sub, match, pattern, regex_constants::match_continuous))
+            {
+                if (type != "ws")
+                {
+                    cout << "[" << type << " " << match.str() << "] ";
+                    stepOneOutput << "[" << type << " " << match.str() << "] ";
+                }
+                pos += match.length();
+                matched = true;
+                break;
+            }
+        }
+        if (!matched)
+        {
+            cout << "[unkn " << text[pos] << "] ";
+            stepOneOutput << "[unkn " << text[pos] << "] ";
+            pos++;
+        }
+    }
+
+    cout << endl;
+    return 0;
+}
