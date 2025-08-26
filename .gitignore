@@ -1,4 +1,4 @@
-*.txt
+*output.txt
 *.exe
 
 *.log
