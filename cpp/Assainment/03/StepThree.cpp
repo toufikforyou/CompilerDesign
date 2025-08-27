@@ -33,7 +33,6 @@ void display(ofstream &out)
         << setw(12) << "DataType"
         << setw(10) << "Scope"
         << setw(25) << "Value" << "\n";
-    out << string(75, '-') << "\n";
 
     for (auto &s : table)
     {
@@ -51,6 +50,7 @@ int main()
 {
     ifstream in("step-two-output.txt");
     ofstream out("step-three-output.txt");
+
     if (!in.is_open())
     {
         cout << "Cannot open input file\n";
@@ -58,6 +58,7 @@ int main()
     }
 
     string content((istreambuf_iterator<char>(in)), {});
+
     vector<string> tokens;
     for (size_t i = 0; i < content.size(); i++)
     {
@@ -150,4 +151,8 @@ int main()
     }
 
     display(out);
+
+    in.close();
+    out.close();
+    return 0;
 }
